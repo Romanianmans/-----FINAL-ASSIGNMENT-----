@@ -30,6 +30,134 @@ class DailyFitnessTracker{
         launch(args);
     }
 
+
+
+
+    
+    /**
+     * @Author Robert Todica
+     * @param args
+     * @throws IOException
+     */
+    public static void collectInfo(String[] args) throws IOException {
+        // Initialise
+        Scanner sc = new Scanner(System.in);
+        boolean continueAsking;
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
+        // Gather information
+        System.out.println("What is your first name?");
+        String nofirstName = sc.nextLine();
+        System.out.println("What is your height in inches?");
+        int height = sc.nextInt();
+
+        continueAsking = true;
+        while(continueAsking)
+        {
+            System.out.println("Do you know what a MET value is?");
+            String input = sc.next();
+            if(input.equals("no"))
+            {
+                Scanner reader = new Scanner(new File("MET.csv"));
+                while(reader.hasNextLine())
+                {
+                    System.out.println(reader.nextLine());
+                }
+            }
+            else if(input.equals("yes"))
+            {
+                continueAsking = false;
+            }
+            else
+            {
+                System.out.println("INVALID INPUT");
+            }
+        }
+
+        System.out.println("What is the MET value for your workout?");
+        double metValue = sc.nextDouble();
+
+        System.out.println("What is your weight in pounds?");
+        int weight = sc.nextInt();
+
+        continueAsking = true;
+        while(continueAsking)
+        {
+            System.out.println("What year were you born in?");
+            year = sc.nextInt();
+            if(year <= 1890)
+            {
+                System.out.println("INVALID INPUT");
+            }
+            else
+            {
+                continueAsking = false;
+            }
+        }
+
+        continueAsking = true;
+        while(continueAsking)
+        {
+            System.out.println("What month were you born in?");
+            month = sc.nextInt();
+            if(month < 1 || month > 12)
+            {
+                System.out.println("INVALID INPUT");
+            }
+            else
+            {
+                continueAsking = false;
+            }
+        }
+
+        continueAsking = true;
+        while(continueAsking)
+        {
+            System.out.println("What day were you born in?");
+            day = sc.nextInt();
+            if(dateCheck(month, day))
+            {
+                continueAsking = false;
+            }
+            else
+            {
+                System.out.println("INVALID INPUT");
+            }
+        }
+
+    }
+
+    
+    /**
+     * @Author Robert Todica
+     * @Description returns true if the day and month are valid, makes sure they input correct day for a correct month
+     * @param month
+     * @param day
+     * @return true/false
+     */
+    public static boolean dateCheck(int month, int day){
+        if (month == 2 && day > 0 && day <= 28)
+        {
+            return true;
+        }
+        else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 0 && day <= 30)
+        {
+            return true;
+        }
+        else if((month != 2 && month != 4 && month != 6 && month != 9 && month != 11) && day > 0 && day <= 31)
+        {
+            return true;
+        }
+        return false;
+    }
+}
+
+
+
+
+
     private List<Double> getBMI() {
         return Arrays.asList(23.6, 4.5, 2.0, 15.3, 62.4, 34.5, 12.4, 34.6, 72.1);
     }
