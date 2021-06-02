@@ -19,6 +19,13 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 class DailyFitnessTracker{
+
+    /**
+     * @author Naomi Mezheritsky
+     * @param args
+     * @throws Exception
+     * Desc: Api. Makes a line chart for the BMI
+     */
     public static void main(String[] args) throws Exception {
         launch(args);
     }
@@ -66,7 +73,7 @@ class DailyFitnessTracker{
         exportAsLineChart(bmiList, stage);
     }
  }
- 
+
     /**
      * @author Anson Sy A Chin, Robert Todica
      * @return returns selected quote
