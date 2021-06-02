@@ -8,32 +8,65 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 
 class DailyFitnessTracker{
-    public static void main(String[] args) throws IOException{
-        Scanner reader = new Scanner(System.in);
-
-        System.out.println("---Program Start---");
-        String quote = dailyQuote();
-        System.out.println(quote);
-        String[] dateInfo = fetchDate();
-
-        System.out.println("Please input your name");
-        String name = reader.nextLine();
-
-        Boolean test = doesFileExist(name);
-
-        if (test==true){
-            System.out.println("Welcome back "+name+"!");
-        }
-        else{
-            newUserFile(name);
-        }
-        
-        reader.close();
-        
+    public static void main(String[] args) throws Exception {
+        launch(args);
     }
 
+    private List<Double> getBMI() {
+        return Arrays.asList(23.6, 4.5, 2.0, 15.3, 62.4, 34.5, 12.4, 34.6, 72.1);
+    }
+
+    private void exportAsLineChart(List<Double> bmiList, Stage stage) {
+        stage.setTitle("Daily Fitness Tracker BMI Line Chart");
+
+        // Create x-axis and y-axis objects
+        CategoryAxis xAxis = new CategoryAxis();        
+        NumberAxis yAxis = new NumberAxis();
+
+        // Create line chart object
+        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle("Weekly BMI (weight / height) Fitness Tracker");
+
+        // Set the axis labels
+        xAxis.setLabel("Weekly Progress (52 Weeks)");
+        yAxis.setLabel("BMI");
+
+         // Add the series object (data) to the lineChart object
+         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+         for (int i=0; i < bmiList.size(); i++) {
+            series.getData().add(new XYChart.Data<String, Number>("Week " + (i+1), bmiList.get(i)));
+        }
+
+        Scene scene = new Scene(lineChart, 800, 600);
+        lineChart.getData().add(series);
+ 
+         // Add scene to the stage, and display it to the screen
+         stage.setScene(scene);
+         stage.show();
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        // 1. retrieve data
+        List<Double> bmiList = getBMI();
+
+        // 2. display chart of BMI as line
+        exportAsLineChart(bmiList, stage);
+    }
+ }
+ 
     /**
      * @author Anson Sy A Chin, Robert Todica
      * @return returns selected quote
