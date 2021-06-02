@@ -20,19 +20,9 @@ import javafx.stage.Stage;
 
 class DailyFitnessTracker{
 
-    /**
-     * @author Naomi Mezheritsky
-     * @param args
-     * @throws Exception
-     * Desc: Api. Makes a line chart for the BMI
-     */
     public static void main(String[] args) throws Exception {
         launch(args);
     }
-
-
-
-
     
     /**
      * @Author Robert Todica
@@ -152,6 +142,12 @@ class DailyFitnessTracker{
         return false;
     }
 
+    /**
+     * @author Naomi Mezheritsky
+     * @param args
+     * @throws Exception
+     * Desc: Api. Makes a line chart for the BMI
+     */
 
     private List<Double> getBMI() {
         return Arrays.asList(23.6, 4.5, 2.0, 15.3, 62.4, 34.5, 12.4, 34.6, 72.1);
