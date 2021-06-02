@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
@@ -18,7 +17,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
-class DailyFitnessTracker{
+public class DailyFitnessTracker extends Application { 
 
     public static void main(String[] args) throws Exception {
         launch(args);
@@ -39,9 +38,9 @@ class DailyFitnessTracker{
 
         // Gather information
         System.out.println("What is your first name?");
-        String nofirstName = sc.nextLine();
+        //String nofirstName = sc.nextLine();
         System.out.println("What is your height in meters?");
-        int height = sc.nextInt();
+        // int height = sc.nextInt();
 
         continueAsking = true;
         while(continueAsking)
@@ -67,13 +66,13 @@ class DailyFitnessTracker{
         }
 
         System.out.println("What is the MET value for your workout?");
-        double metValue = sc.nextDouble();
+        // double metValue = sc.nextDouble();
 
         System.out.println("What is your weight in kilograms?");
-        int weight = sc.nextInt();
+        // int weight = sc.nextInt();
 
         System.out.println("How long in minutes will your workout be?");
-        int time = sc.nextInt();
+        // int time = sc.nextInt();
 
 
         continueAsking = true;
@@ -120,6 +119,7 @@ class DailyFitnessTracker{
                 System.out.println("INVALID INPUT");
             }
         }
+        sc.close();
     }
 
     
@@ -154,7 +154,10 @@ class DailyFitnessTracker{
      */
 
     private List<Double> getBMI() {
-        return Arrays.asList(23.6, 4.5, 2.0, 15.3, 62.4, 34.5, 12.4, 34.6, 72.1);
+        // 1. Get a list of weight and height from the file
+        // 2. Create a list of bmi where every member is calculated with bmiCalculator()
+        // 3. return this list
+        return Arrays.asList(23.6, 4.5, 2.0, 15.3, 34.5, 12.4, 34.6, 72.1);
     }
 
     private void exportAsLineChart(List<Double> bmiList, Stage stage) {

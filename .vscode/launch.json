@@ -4,25 +4,19 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "Launch DailyFitnessTracker",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/naomi/OneDrive/Documents/java/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "DailyFitnessTracker",
+            "projectName": "-----FINAL-ASSIGNMENT-----_4931eb7c"
+        },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
         },
-        {
-            "type": "java",
-            "name": "Launch DailyFitnessTracker",
-            "request": "launch",
-            "mainClass": "DailyFitnessTracker",
-            "projectName": "-----FINAL-ASSIGNMENT-----_4931eb7c"
-        },
-        {
-            "type": "java",
-            "name": "Launch CustomerSystem",
-            "request": "launch",
-            "mainClass": "CustomerSystem"
-        }
     ]
 }
