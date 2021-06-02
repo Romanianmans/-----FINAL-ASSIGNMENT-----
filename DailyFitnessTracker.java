@@ -72,7 +72,6 @@ class DailyFitnessTracker{
         // 2. display chart of BMI as line
         exportAsLineChart(bmiList, stage);
     }
- }
 
     /**
      * @author Anson Sy A Chin, Robert Todica
