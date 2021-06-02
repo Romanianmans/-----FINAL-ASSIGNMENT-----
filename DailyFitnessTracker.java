@@ -126,7 +126,6 @@ class DailyFitnessTracker{
                 System.out.println("INVALID INPUT");
             }
         }
-
     }
 
     
@@ -152,10 +151,6 @@ class DailyFitnessTracker{
         }
         return false;
     }
-}
-
-
-
 
 
     private List<Double> getBMI() {
