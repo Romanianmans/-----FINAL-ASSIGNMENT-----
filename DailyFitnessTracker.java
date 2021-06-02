@@ -40,7 +40,7 @@ class DailyFitnessTracker{
         // Gather information
         System.out.println("What is your first name?");
         String nofirstName = sc.nextLine();
-        System.out.println("What is your height in inches?");
+        System.out.println("What is your height in meters?");
         int height = sc.nextInt();
 
         continueAsking = true;
@@ -69,8 +69,12 @@ class DailyFitnessTracker{
         System.out.println("What is the MET value for your workout?");
         double metValue = sc.nextDouble();
 
-        System.out.println("What is your weight in pounds?");
+        System.out.println("What is your weight in kilograms?");
         int weight = sc.nextInt();
+
+        System.out.println("How long in minutes will your workout be?");
+        int time = sc.nextInt();
+
 
         continueAsking = true;
         while(continueAsking)
