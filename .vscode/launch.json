@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch GUI",
+            "request": "launch",
+            "mainClass": "GUI",
+            "projectName": "-----FINAL-ASSIGNMENT-----_4931eb7c"
+        },
+        {
+            "type": "java",
             "name": "Launch DailyFitnessTracker",
             "request": "launch",
             "vmArgs": "--module-path /Users/naomi/OneDrive/Documents/java/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
@@ -17,6 +24,6 @@
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
+        }
     ]
 }

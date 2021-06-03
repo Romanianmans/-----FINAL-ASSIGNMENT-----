@@ -154,21 +154,21 @@ public class DailyFitnessTracker extends Application {
      */
 
     private List<Double> getBMI() {
-        // 1. Get a list of weight and height from the file
-        // 2. Create a list of bmi where every member is calculated with bmiCalculator()
+        // 1. Get the list of weight and height from the file
+        // 2. Create the list of bmi where every member is calculated with bmiCalculator()
         // 3. return this list
-        return Arrays.asList(23.6, 4.5, 2.0, 15.3, 34.5, 12.4, 34.6, 72.1);
+        return Arrays.asList(23.6, 4.5, 2.0, 15.3, 34.5, 12.4, 34.6, 72.1); // graph will display users input for the BMI
     }
 
     private void exportAsLineChart(List<Double> bmiList, Stage stage) {
-        stage.setTitle("Daily Fitness Tracker BMI Line Chart");
+        stage.setTitle("Daily Fitness Tracker BMI Line Chart"); // title of "application"
 
         // Create x-axis and y-axis objects
-        CategoryAxis xAxis = new CategoryAxis();        
-        NumberAxis yAxis = new NumberAxis();
+        CategoryAxis xAxis = new CategoryAxis();   // xAxis represents CategoryAxis       
+        NumberAxis yAxis = new NumberAxis();       // yAxis represents NumberAxis
 
         // Create line chart object
-        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis); 
         lineChart.setTitle("Weekly BMI (weight / height) Fitness Tracker");
 
         // Set the axis labels
@@ -178,16 +178,19 @@ public class DailyFitnessTracker extends Application {
          // Add the series object (data) to the lineChart object
          XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
          for (int i=0; i < bmiList.size(); i++) {
+             // makes sure that the user understands that the X-axis is counted by each week 
             series.getData().add(new XYChart.Data<String, Number>("Week " + (i+1), bmiList.get(i)));
         }
 
-        Scene scene = new Scene(lineChart, 800, 600);
+        // Sets a dimensions for your scene (screen) in pixels ..
+        // .. the dimensions (resolutions) are measured in pixels
+        Scene scene = new Scene(lineChart, 800, 600);  
         lineChart.getData().add(series);
  
          // Add scene to the stage, and display it to the screen
          stage.setScene(scene);
          stage.show();
-    }
+    } 
 
     @Override
     public void start(Stage stage) throws Exception {
