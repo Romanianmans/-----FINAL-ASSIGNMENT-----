@@ -24,102 +24,102 @@ public class DailyFitnessTracker extends Application {
     }
     
     /**
+     * @Description This method prompts the user to enter the information required for all the following methods
      * @Author Robert Todica
      * @param args
      * @throws IOException
      */
-    public static void collectInfo(String[] args) throws IOException {
+    public static void collectInfo(String[] args) throws IOException {       //Collect info method
         // Initialise
-        Scanner sc = new Scanner(System.in);
-        boolean continueAsking;
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+        boolean continueAsking; // initilizes variables
         int year = 0;
         int month = 0;
         int day = 0;
 
         // Gather information
-        System.out.println("What is your first name?");
-        //String nofirstName = sc.nextLine();
-        System.out.println("What is your height in meters?");
-        // int height = sc.nextInt();
+        System.out.println("What is your first name?");  //Asks user for first name
+        String nofirstName = sc.nextLine();  //Sanes name as string variable nofirstName
+        System.out.println("What is your height in meters?"); //Asks user for height
+        int height = sc.nextInt(); //Saves height as variable height
 
-        continueAsking = true;
-        while(continueAsking)
+        continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
+        while(continueAsking) //While loop for when boolean continueAsking is true 
         {
-            System.out.println("Do you know what a MET value is?");
-            String input = sc.next();
-            if(input.equals("no"))
+            System.out.println("Do you know what a MET value is?"); //Asks user if they know what an MET value is
+            String input = sc.next(); //Collects userinput
+            if(input.equals("no")) //If user enters "no" (they dont know what an MET is)
             {
-                Scanner reader = new Scanner(new File("MET.csv"));
-                while(reader.hasNextLine())
+                Scanner reader = new Scanner(new File("MET.csv")); //MET.csv file opens and prints out what an MET is and various activities with corresponding MET values
+                while(reader.hasNextLine()) //While loop to print out every line in the MET.csv file
                 {
-                    System.out.println(reader.nextLine());
+                    System.out.println(reader.nextLine()); //Prints every like of the MET.csv file
                 }
             }
-            else if(input.equals("yes"))
+            else if(input.equals("yes")) //If the user knows what an MET value is or after the MET.csv has been displayed, user is asked what their MET value is
             {
-                continueAsking = false;
+                continueAsking = false; //Sets the boolean to false so it does not loop
             }
-            else
+            else //If userinput does not satisfy previous conditions the userinput must be false so "INVALID INPUT" is displayed
             {
-                System.out.println("INVALID INPUT");
+                System.out.println("INVALID INPUT"); 
             }
         }
 
-        System.out.println("What is the MET value for your workout?");
-        // double metValue = sc.nextDouble();
+        System.out.println("What is the MET value for your workout?"); //Asks user what is their MET value
+        double metValue = sc.nextDouble(); //MET value saved as variable metValue
 
-        System.out.println("What is your weight in kilograms?");
-        // int weight = sc.nextInt();
+        System.out.println("What is your weight in kilograms?"); //Asks user how much they weigh
+        int weight = sc.nextInt(); //Users weight is saved in variable "weight"
 
-        System.out.println("How long in minutes will your workout be?");
-        // int time = sc.nextInt();
+        System.out.println("How long in minutes will your workout be?"); //Asks the user for how long the duration of their workout will be
+        int time = sc.nextInt(); //Duration of workout saved in "time" variable
 
 
-        continueAsking = true;
-        while(continueAsking)
+        continueAsking = true; //Sets boolean "continueAsking" to true agaiun to be used for a loop
+        while(continueAsking) //While boolean "continueAsking" is true
         {
-            System.out.println("What year were you born in?");
-            year = sc.nextInt();
-            if(year <= 1890)
+            System.out.println("What year were you born in?"); //User is asked what year they were born in
+            year = sc.nextInt(); //Collects users birthyear as variable "year"
+            if(year <= 1890) //If users birthyear is less than or equal to 1890 then the userinput is invalid
             {
-                System.out.println("INVALID INPUT");
+                System.out.println("INVALID INPUT"); //Prints out "INVALID INPUT"
             }
-            else
+            else //Usersinput satisfies previous birthyear question
             {
-                continueAsking = false;
+                continueAsking = false; //Boolean "continueAsking" is set to false so next code will display
+            }
+        }
+        continueAsking = true; //Sets continueAsking to true
+        while(continueAsking) //While Boolean "continueAsking" is true
+        {
+            System.out.println("What month were you born in?"); //Asks user for their birthmonth
+            month = sc.nextInt(); //Collests usersinput for birthmonth as variable "month"
+            if(month < 1 || month > 12) //Userinputted value for month must be at or above one, or at or below 12
+            {
+                System.out.println("INVALID INPUT"); //If previous conditions are not satisfied,"INVALID INPUT" is displayed
+            }
+            else //Else if previous requirements are satisfies the boolean is set to false so further code may continue
+            {
+                continueAsking = false; //Boolean set to false
             }
         }
 
-        continueAsking = true;
-        while(continueAsking)
+        continueAsking = true; //Sets continueAsking to true
+        while(continueAsking) //While Boolean "continueAsking" is true
         {
-            System.out.println("What month were you born in?");
-            month = sc.nextInt();
-            if(month < 1 || month > 12)
+            System.out.println("What day were you born in?"); //Asks user for their birth day
+            day = sc.nextInt(); //Saves userinputted value for birth day as variable "day"
+            if(dateCheck(month, day)) //This is a later method that checks to make sure userinputted date is correct
             {
-                System.out.println("INVALID INPUT");
+                continueAsking = false; //If userinputted dates are correct boolean is set to false so future code may play
             }
-            else
+            else //If previous userinputted values are invalid
             {
-                continueAsking = false;
+                System.out.println("INVALID INPUT"); //Displays "INVALID INPUT"
             }
         }
-
-        continueAsking = true;
-        while(continueAsking)
-        {
-            System.out.println("What day were you born in?");
-            day = sc.nextInt();
-            if(dateCheck(month, day))
-            {
-                continueAsking = false;
-            }
-            else
-            {
-                System.out.println("INVALID INPUT");
-            }
-        }
-        sc.close();
+        sc.close(); //Scanner closed
     }
 
     
@@ -130,20 +130,20 @@ public class DailyFitnessTracker extends Application {
      * @param day
      * @return true/false
      */
-    public static boolean dateCheck(int month, int day){
-        if (month == 2 && day > 0 && day <= 28)
+    public static boolean dateCheck(int month, int day){ //dateCheck method
+        if (month == 2 && day > 0 && day <= 28) //If userinputted month is Febuary, day inputted must be greater than 0 but equal to or less than 28
         {
-            return true;
+            return true; //If above checks are satisfied, returns true
         }
-        else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 0 && day <= 30)
+        else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 0 && day <= 30) //If userinputted month is April,June,September,November then day inputted must be greater than 0 but equal to or less than 30
         {
-            return true;
+            return true; //If above checks are satisfied, returns true
         }
-        else if((month != 2 && month != 4 && month != 6 && month != 9 && month != 11) && day > 0 && day <= 31)
+        else if((month != 2 && month != 4 && month != 6 && month != 9 && month != 11) && day > 0 && day <= 31)//If userinputted month is not April,June,September,November or Febuary then day must be greater than 0 but less than or equal to 31
         {
-            return true;
+            return true;//If above checks are satisfied, returns true
         }
-        return false;
+        return false;//If above checks are not satisfied, returns false
     }
 
     /**
