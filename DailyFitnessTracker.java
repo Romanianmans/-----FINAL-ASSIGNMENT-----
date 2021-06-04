@@ -29,12 +29,38 @@ public class DailyFitnessTracker extends Application {
         String displayProgressGraph = "4";
         String quit = "5";
         
+        String[] dateInfo = fetchDate();
         dailyQuote();
-        collectInfo(args);
-        dateCheck(0, 0);
-        doesFileExist();
-        fetchDate();
-        newUserFile();
+        String name = collectName();
+        Boolean filecheck = doesFileExist(name);
+
+        double height = 0;
+        String gender = "";
+        double met = 0;
+        int weight = 0;
+        int time = 0;
+        int bDayYear = 0;
+        int bDayMonth = 0;
+        int bDayDay = 0;
+
+        if (filecheck = true){
+            height = collectHeight();
+            weight = collectWeight();
+            met = collectMET();
+            time = collectWorkoutTime();
+        }
+        else{
+            height = collectHeight();
+            gender = collectGender();
+            met = collectMET();
+            weight = collectWeight();
+            time = collectWorkoutTime();
+            bDayYear = collectBdayYear();
+            bDayMonth = collectBdayMonth();
+            bDayDay = collectBdayDay(bDayMonth);
+        }
+        
+        //newUserFile(name, dateInfo, bDayYear, bDayMonth, bDayDay, gender, height, weight, bmi);
         menu ();
         String userInput = reader.nextLine();
 
@@ -44,17 +70,17 @@ public class DailyFitnessTracker extends Application {
             }
             else if (userInput.equals(calculateNewBMI)) {
                 // the methods for bmi calculation and comparison
-                bmiCalculator();
-                avgCalculator();
+                double bmi = bmiCalculator(weight, height);
+                avgCalculator(gender, age, bmi);
             }
             else if (userInput.equals(calculateCalories)) {
                 // the methods for user inputting calories and calculating
-                caloriesCalculator();
+                caloriesCalculator(time, met, weight);
             }
         else if (userInput.equals(displayProgressGraph)) {
                 // the methods for graph
                 launch(args);
-                getBMI();
+                getBMI(name);
                 exportAsLineChart();
                 start();
             }
@@ -70,44 +96,52 @@ public class DailyFitnessTracker extends Application {
         System.out.println("Enter menu option (1-5)");
       }
     
-    /**
-     * @Description This method prompts the user to enter the information required for all the following methods
-     * @Author Robert Todica
-     * @param args
-     * @throws IOException
-     */
-    public static void collectInfo(String[] args) throws IOException {       //Collect info method
-        // Initialise
+      public static String collectName(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
-        boolean continueAsking; // initilizes variables
-        int year = 0;
-        int month = 0;
-        int day = 0;
 
-        // Gather information
         System.out.println("What is your first name?");  //Asks user for first name
-        String nofirstName = sc.nextLine();  //Sanes name as string variable nofirstName
-        System.out.println("What is your height in meters?"); //Asks user for height
-        int height = sc.nextInt(); //Saves height as variable height
-        
-        continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
-        while(continueAsking) //While loop for when boolean continueAsking is true 
-        {
-        System.out.println("What is your gender (male/female?"); //Asks user for gender
-        String gender = sc.nextLine(); //Saves gender as variable gender
-        if(gender.equals("male")){ //If users input is "male"
-          continueAsking = false; //Valid answer and while loop stops
-        }
-        if(gender.equals("female")){//If users input is "female"
-            continueAsking = false;//Valid answer and while loop stops
-        }
-        else{ //If users input is not "male" or "female"
-        System.out.println("INVALID INPUT"); //Input is invalid 
-        continueAsking = true; //continueAsking is set to true so it loops the question
-        }
+        String info = sc.nextLine();  //Saves name as string variable info
+
+        return info;
     }
 
-        continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
+    public static double collectHeight(){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+
+        System.out.println("What is your height in meters?");  //Asks user for first name
+        double height = sc.nextDouble();  //Saves height as string variable height
+
+        return height;
+    }
+
+    public static String collectGender(){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+        String gender = "";
+
+        Boolean continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
+        while(continueAsking) //While loop for when boolean continueAsking is true 
+        {
+            System.out.println("What is your gender (male/female?)"); //Asks user for gender
+            gender = sc.nextLine(); //Saves gender as variable gender
+
+            if(gender.equals("male")){ //If users input is "male"
+                continueAsking = false; //Valid answer and while loop stops
+            }
+            else if(gender.equals("female")){//If users input is "female"
+                continueAsking = false;//Valid answer and while loop stops
+            }
+            else{ //If users input is not "male" or "female"
+                System.out.println("INVALID INPUT"); //Input is invalid 
+                continueAsking = true; //continueAsking is set to true so it loops the question
+            }
+        }
+        return gender;
+    }
+
+    public static double collectMET() throws IOException{
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+
+        Boolean continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
         while(continueAsking) //While loop for when boolean continueAsking is true 
         {
             System.out.println("Do you know what a MET value is?"); //Asks user if they know what an MET value is
@@ -132,15 +166,32 @@ public class DailyFitnessTracker extends Application {
 
         System.out.println("What is the MET value for your workout?"); //Asks user what is their MET value
         double metValue = sc.nextDouble(); //MET value saved as variable metValue
+        return metValue;
+    }
+
+    public static int collectWeight(){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
 
         System.out.println("What is your weight in kilograms?"); //Asks user how much they weigh
         int weight = sc.nextInt(); //Users weight is saved in variable "weight"
 
+        return weight;
+    }
+
+    public static int collectWorkoutTime(){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+
         System.out.println("How long in minutes will your workout be?"); //Asks the user for how long the duration of their workout will be
         int time = sc.nextInt(); //Duration of workout saved in "time" variable
 
+        return time;
+    }
 
-        continueAsking = true; //Sets boolean "continueAsking" to true agaiun to be used for a loop
+    public static int collectBdayYear(){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+        int year = 0;
+
+        Boolean continueAsking = true; //Sets boolean "continueAsking" to true agaiun to be used for a loop
         while(continueAsking) //While boolean "continueAsking" is true
         {
             System.out.println("What year were you born in?"); //User is asked what year they were born in
@@ -154,7 +205,15 @@ public class DailyFitnessTracker extends Application {
                 continueAsking = false; //Boolean "continueAsking" is set to false so next code will display
             }
         }
-        continueAsking = true; //Sets continueAsking to true
+
+        return year;
+    }
+
+    public static int collectBdayMonth(){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+        int month = 0;
+
+        Boolean continueAsking = true; //Sets continueAsking to true
         while(continueAsking) //While Boolean "continueAsking" is true
         {
             System.out.println("What month were you born in?"); //Asks user for their birthmonth
@@ -169,7 +228,14 @@ public class DailyFitnessTracker extends Application {
             }
         }
 
-        continueAsking = true; //Sets continueAsking to true
+        return month;
+    }
+
+    public static int collectBdayDay(int month){
+        Scanner sc = new Scanner(System.in); //Initilize scanner
+        int day = 0;
+
+        Boolean continueAsking = true; //Sets continueAsking to true
         while(continueAsking) //While Boolean "continueAsking" is true
         {
             System.out.println("What day were you born in?"); //Asks user for their birth day
@@ -183,7 +249,8 @@ public class DailyFitnessTracker extends Application {
                 System.out.println("INVALID INPUT"); //Displays "INVALID INPUT"
             }
         }
-        sc.close(); //Scanner closed
+
+        return day;
     }
 
     
@@ -217,11 +284,12 @@ public class DailyFitnessTracker extends Application {
      * Desc: Api. Makes a line chart for the BMI
      */
 
-    private List<Double> getBMI() {
+    private ArrayList<String> getBMI(String name) {
         // 1. Get the list of weight and height from the file
         // 2. Create the list of bmi where every member is calculated with bmiCalculator()
         // 3. return this list
-        return Arrays.asList(23.6, 4.5, 2.0, 15.3, 34.5, 12.4, 34.6, 72.1); // graph will display users input for the BMI
+        ArrayList<String> bmi = new ArrayList<String>(fileReadBMI(name));
+        return bmi; // graph will display users input for the BMI
     }
 
     private void exportAsLineChart(List<Double> bmiList, Stage stage) {
