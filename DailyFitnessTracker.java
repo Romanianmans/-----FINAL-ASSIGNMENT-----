@@ -288,18 +288,23 @@ public class DailyFitnessTracker extends Application {
      * @param filename the name of the file that should be made
      * @throws IOException
      */
-    public static void newUserFile (String filename) throws IOException{
+    public static void newUserFile (String filename, String[] dateInfo, String bYear, String bMonth, String bDay, String gender, String height, String weight, String bmi) throws IOException{
         PrintWriter writer = new PrintWriter(new File(filename+".csv")); 
         StringBuilder sb = new StringBuilder(); 
+
+        String date = dateInfo [0];
+        String year = dateInfo [1];
+        String month = dateInfo [2];
+        String day = dateInfo [3];
         
-        sb.append("Date,Year,Month,Day,BYear,BMonth,Bday,Gender,Height,Weight\n");//Set up columns 
-        sb.append("a");//append user info *WIP*
+        sb.append("Date,Year,Month,Day,Byear,Bmonth,Bday,Gender,Height,Weight,BMI\n");//Set up columns 
+        sb.append(date+","+year+","+month+","+day+","+bYear+","+bMonth+","+bDay+","+gender+","+height+","+weight+","+bmi);//append user info *
 
         writer.write(sb.toString());//write to file
 
         writer.close();//close writer
     }
-    
+
     /**
      * calculates BMI of the user using weight and height values,
      * with the formula (weight / height * height) and declares 
