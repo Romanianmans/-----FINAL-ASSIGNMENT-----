@@ -42,6 +42,23 @@ public class DailyFitnessTracker extends Application {
         String nofirstName = sc.nextLine();  //Sanes name as string variable nofirstName
         System.out.println("What is your height in meters?"); //Asks user for height
         int height = sc.nextInt(); //Saves height as variable height
+        
+        continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
+        while(continueAsking) //While loop for when boolean continueAsking is true 
+        {
+        System.out.println("What is your gender (male/female?"); //Asks user for gender
+        String gender = sc.nextLine(); //Saves gender as variable gender
+        if(gender.equals("male")){ //If users input is "male"
+          continueAsking = false; //Valid answer and while loop stops
+        }
+        if(gender.equals("female")){//If users input is "female"
+            continueAsking = false;//Valid answer and while loop stops
+        }
+        else{ //If users input is not "male" or "female"
+        System.out.println("INVALID INPUT"); //Input is invalid 
+        continueAsking = true; //continueAsking is set to true so it loops the question
+        }
+        
 
         continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
         while(continueAsking) //While loop for when boolean continueAsking is true 
