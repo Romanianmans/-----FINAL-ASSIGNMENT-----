@@ -284,11 +284,11 @@ public class DailyFitnessTracker extends Application {
      * Desc: Api. Makes a line chart for the BMI
      */
 
-    private ArrayList<String> getBMI(String name) {
+    private ArrayList<Double> getBMI(String name) {
         // 1. Get the list of weight and height from the file
         // 2. Create the list of bmi where every member is calculated with bmiCalculator()
         // 3. return this list
-        ArrayList<String> bmi = new ArrayList<String>(fileReadBMI(name));
+        ArrayList<Double> bmi = new ArrayList<Double>(fileReadBMI(name));
         return bmi; // graph will display users input for the BMI
     }
 
@@ -341,16 +341,20 @@ public class DailyFitnessTracker extends Application {
      * @return returns an array list with the necessary information 
      * @throws IOException throws Input/Output exceptions 
      */
-    public static ArrayList<String> fileReadBMI(String filename) throws IOException{
+    public static ArrayList<Double> fileReadBMI(String filename) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(filename+".csv")); //Create buffered reader for file
         String line = ""; //Declare variable
         String delimeter = ","; //Set delimiter to ,
 
-        ArrayList<String> bmi = new ArrayList<String>(); //Create array list
+        ArrayList<Double> bmi = new ArrayList<Double>(); //Create array list
 
         while ((line = br.readLine()) != null) { //While there are still lines to be read loop
         String[] column = line.split(delimeter); //Read the file into an array
-        bmi.add(column[10]); //Add 11th column into array list
+
+        String tempbmi = column[10];
+        double pastebmi = Double.parseDouble(tempbmi);
+
+        bmi.add(pastebmi); //Add 11th column into array list
         }
         br.close(); //Close buffered reader
         bmi.remove(0);//Remove the column header
