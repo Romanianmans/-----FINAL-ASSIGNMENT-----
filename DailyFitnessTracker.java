@@ -20,8 +20,53 @@ import javafx.stage.Stage;
 public class DailyFitnessTracker extends Application { 
 
     public static void main(String[] args) throws Exception {
-        launch(args);
+        Scanner reader = new Scanner (System.in);
+        String displayUserInformation = "1";
+        String calculateNewBMI = "2";
+        String calculateCalories = "3";
+        String displayProgressGraph = "4";
+        String quit = "5";
+        
+        dailyQuote();
+        collectInfo(args);
+        dateCheck(0, 0);
+        doesFileExist();
+        fetchDate();
+        newUserFile();
+        menu ();
+        String userInput = reader.nextLine();
+
+        do {
+            if (userInput.equals(displayUserInformation)) {
+                // the methods for user input
+            }
+            else if (userInput.equals(calculateNewBMI)) {
+                // the methods for bmi calculation and comparison
+                bmiCalculator();
+                avgCalculator();
+            }
+            else if (userInput.equals(calculateCalories)) {
+                // the methods for user inputting calories and calculating
+                caloriesCalculator();
+            }
+        else if (userInput.equals(displayProgressGraph)) {
+                // the methods for graph
+                launch(args);
+                getBMI();
+                exportAsLineChart();
+                start();
+            }
+        } while (!userInput.equals(quit));
     }
+    public static void menu () {
+        System.out.println("Select an Option:");
+        System.out.println("1. Display User Information");
+        System.out.println("2. Calculate New BMI");
+        System.out.println("3. Calculate Calories");
+        System.out.println("4. Display Progress Graph");
+        System.out.println("5. Quit \n");
+        System.out.println("Enter menu option (1-5)");
+      }
     
     /**
      * @Description This method prompts the user to enter the information required for all the following methods
