@@ -58,7 +58,7 @@ public class DailyFitnessTracker extends Application {
         System.out.println("INVALID INPUT"); //Input is invalid 
         continueAsking = true; //continueAsking is set to true so it loops the question
         }
-        
+    }
 
         continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
         while(continueAsking) //While loop for when boolean continueAsking is true 
