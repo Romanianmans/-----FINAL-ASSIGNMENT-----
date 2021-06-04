@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
@@ -262,6 +264,78 @@ public class DailyFitnessTracker extends Application {
 
         // 2. display chart of BMI as line
         exportAsLineChart(bmiList, stage);
+    }
+
+    /**
+     * This method reads the information of a specific column in the selected .csv
+     * 
+     * @param filename is the filename that should be read
+     * @return returns an array list with the necessary information 
+     * @throws IOException throws Input/Output exceptions 
+     */
+    public static ArrayList<String> fileReadBMI(String filename) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(filename+".csv")); //Create buffered reader for file
+        String line = ""; //Declare variable
+        String delimeter = ","; //Set delimiter to ,
+
+        ArrayList<String> bmi = new ArrayList<String>(); //Create array list
+
+        while ((line = br.readLine()) != null) { //While there are still lines to be read loop
+        String[] column = line.split(delimeter); //Read the file into an array
+        bmi.add(column[10]); //Add 11th column into array list
+        }
+        br.close(); //Close buffered reader
+        bmi.remove(0);//Remove the column header
+        return bmi;
+    }
+
+        /**
+     * This method read the information of a specific column in the selected .csv
+     * 
+     * @param filename is the filename that should be read
+     * @return returns an array list with the necessary information 
+     * @throws IOException throws Input/Output exceptions 
+     */
+    public static ArrayList<String> fileReadHeight(String filename) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(filename+".csv")); //Create buffered reader for file
+        String line = ""; //Declare variable
+        String delimeter = ","; //Set delimiter to ,
+
+        ArrayList<String> height = new ArrayList<String>(); //Create array list
+
+        while ((line = br.readLine()) != null) { //While there are still lines to be read loop
+        String[] column = line.split(delimeter); //Read the file into an array
+        height.add(column[10]); //Add 11th column into array list
+        }
+        br.close(); //Close buffered reader
+        height.remove(0);//Remove the column header
+        return height;
+    }
+
+    /**
+     * 
+     * @param filename filename that should be read
+     * @param dateInfo an array that contains the system date information
+     * @param bYear birth year
+     * @param bMonth birth month
+     * @param bDay birth day
+     * @param gender gender
+     * @param height inputted height 
+     * @param weight inputted weight
+     * @param bmi calculated BMI
+     * @throws IOException
+     */
+    public static void existingFileWrite(String filename, String[] dateInfo, String bYear, String bMonth, String bDay, String gender, String height, String weight, String bmi) throws IOException{
+        FileWriter pw = new FileWriter(filename+".csv", true);//Initialize FileWriter
+
+        String date = dateInfo [0];
+        String year = dateInfo [1];
+        String month = dateInfo [2];
+        String day = dateInfo [3];
+
+        pw.append("\n"+date+","+year+","+month+","+day+","+bYear+","+bMonth+","+bDay+","+gender+","+height+","+weight+","+bmi);//Append user information
+
+        pw.close();//Close FileWriter
     }
 
     /**
