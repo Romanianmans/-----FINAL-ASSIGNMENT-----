@@ -94,8 +94,8 @@ public class DailyFitnessTracker extends Application{
             else if (userInput.equals(displayProgressGraph)) {
                 // the methods for graph
                 launch(args);
-                getBMI(name);
-                exportAsLineChart();
+              //getBMI(name);
+                exportAsLineChart(bmiList);
                 start();
             }
         } while (!userInput.equals(quit));
@@ -329,21 +329,26 @@ public class DailyFitnessTracker extends Application{
         return false;//If above checks are not satisfied, returns false
     }
 
+    // /**
+    //  * @author Naomi Mezheritsky
+    //  * @param args
+    //  * @throws Exception
+    //  * Desc: Api. Reads BMI
+    //  */
+    
+    // private List<Double> getBMI(String name) throws IOException {
+    //     // 1. Get the list of weight and height from the file
+    //     // 2. Create the list of bmi where every member is calculated with bmiCalculator()
+    //     // 3. return this list
+    //     List<Double> bmi = (fileReadBMI(name));
+    //     return bmi; // graph will display users input for the BMI
+    // }
+
     /**
      * @author Naomi Mezheritsky
      * @param args
-     * @throws Exception
      * Desc: Api. Makes a line chart for the BMI
      */
-
-    
-    private List<Double> getBMI(String name) {
-        // 1. Get the list of weight and height from the file
-        // 2. Create the list of bmi where every member is calculated with bmiCalculator()
-        // 3. return this list
-        List<Double> bmi = (fileReadBMI(name));
-        return bmi; // graph will display users input for the BMI
-    }
 
     private void exportAsLineChart(List<Double> bmiList, Stage stage) {
         stage.setTitle("Daily Fitness Tracker BMI Line Chart"); // title of "application"
@@ -377,16 +382,22 @@ public class DailyFitnessTracker extends Application{
          stage.show();
     } 
 
-    @Override
-    public void start(Stage stage) throws Exception {
+     /**
+     * @author Naomi Mezheritsky
+     * @param args
+     * @throws Exception
+     * Desc: Api. Retrives the data then displays the BMI in a line chart
+     */
+
+   // @Override
+    public void start(Stage stage, String name) throws Exception {  
 
         // 1. retrieve data
-        ArrayList<Double> bmiList = getBMI();
+        List<Double> bmiList = fileReadBMI(name);
 
         // 2. display chart of BMI as line
         exportAsLineChart(bmiList, stage);
-    }
-    
+    }    
     
     /**
      * Calculates the age using system date and birthday
@@ -774,5 +785,10 @@ public class DailyFitnessTracker extends Application{
             System.out.println("You're doing great :)");
         }
         return avg;
+    }
+    @Override
+    public void start(Stage arg0) throws Exception {
+        // TODO Auto-generated method stub
+        
     }
 }
