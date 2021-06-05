@@ -21,10 +21,9 @@ import javafx.stage.Stage;
 
 
 public class DailyFitnessTracker extends Application{ 
-
     public static void main(String[] args) throws Exception {
-        Scanner reader = new Scanner (System.in);
         Stage stage = new Stage();
+        Scanner reader = new Scanner (System.in);
 
         String displayUserInformation = "1";
         String calculateNewBMI = "2";
@@ -354,7 +353,7 @@ public class DailyFitnessTracker extends Application{
      * Desc: Api. Makes a line chart for the BMI
      */
 
-    private void exportAsLineChart(List<Double> bmiList, Stage stage) {
+    private static void exportAsLineChart(List<Double> bmiList, Stage stage) {
         stage.setTitle("Daily Fitness Tracker BMI Line Chart"); // title of "application"
 
         // Create x-axis and y-axis objects
@@ -393,7 +392,7 @@ public class DailyFitnessTracker extends Application{
      * Desc: Api. Retrives the data then displays the BMI in a line chart
      */
 
-   // @Override
+    //@Override
     public void start(Stage stage, String name) throws Exception {  
 
         // 1. retrieve data
@@ -790,7 +789,7 @@ public class DailyFitnessTracker extends Application{
         }
         return avg;
     }
-    @Override
+    //@Override
     public void start(Stage arg0) throws Exception {
         // TODO Auto-generated method stub
         
