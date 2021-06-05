@@ -24,6 +24,8 @@ public class DailyFitnessTracker extends Application{
 
     public static void main(String[] args) throws Exception {
         Scanner reader = new Scanner (System.in);
+        Stage stage = new Stage();
+
         String displayUserInformation = "1";
         String calculateNewBMI = "2";
         String calculateCalories = "3";
@@ -47,8 +49,9 @@ public class DailyFitnessTracker extends Application{
         int bDayDay = 0;
         double bmi = 0;
         int age = 0;
+        String userInput = "";
         
-
+    
         if (filecheck == true){
             height = collectHeight();
             weight = collectWeight();
@@ -78,9 +81,10 @@ public class DailyFitnessTracker extends Application{
         
         
         menu ();
-        String userInput = reader.nextLine();
+        
 
         do {
+            userInput = reader.nextLine();
             if (userInput.equals(displayUserInformation)) {
                 // the methods for user input
             }
@@ -94,9 +98,9 @@ public class DailyFitnessTracker extends Application{
             else if (userInput.equals(displayProgressGraph)) {
                 // the methods for graph
                 launch(args);
-              //getBMI(name);
-                exportAsLineChart(bmiList);
-                start();
+                List<Double> bmiList = fileReadBMI(name);
+                exportAsLineChart(bmiList, stage);
+                start(stage);
             }
         } while (!userInput.equals(quit));
     }
