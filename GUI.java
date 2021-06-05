@@ -1,8 +1,6 @@
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.*;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

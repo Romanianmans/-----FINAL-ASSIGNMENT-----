@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,90 +19,15 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 
-public class DailyFitnessTracker extends Application{ 
+public class DailyFitnessTracker extends Application { 
+
+    private Scanner sc;
+
     public static void main(String[] args) throws Exception {
-        Stage stage = new Stage();
-        Scanner reader = new Scanner (System.in);
-
-        String displayUserInformation = "1";
-        String calculateNewBMI = "2";
-        String calculateCalories = "3";
-        String displayProgressGraph = "4";
-        String quit = "5";
-        
-        String[] dateInfo = fetchDate();
-        String quote = dailyQuote();
-        System.out.println(quote);
-
-        String name = collectName();
-        Boolean filecheck = doesFileExist(name);
-
-        double height = 0;
-        String gender = "";
-        double met = 0;
-        int weight = 0;
-        int time = 0;
-        int bDayYear = 0;
-        int bDayMonth = 0;
-        int bDayDay = 0;
-        double bmi = 0;
-        int age = 0;
-        String userInput = "";
-        
-    
-        if (filecheck == true){
-            height = collectHeight();
-            weight = collectWeight();
-            met = collectMET();
-            time = collectWorkoutTime();
-            bmi = bmiCalculator(weight, height);
-            age = ageCalculator(bDayYear, bDayMonth, bDayDay, dateInfo);
-            bDayYear = fileReadBDayYear(name);
-            bDayMonth = fileReadBDayMonth(name);
-            bDayDay = fileReadBDayDay(name);
-            age = ageCalculator(bDayYear, bDayMonth, bDayDay, dateInfo);
-            existingFileWrite(name, dateInfo, bDayYear, bDayMonth, bDayDay, gender, height, weight, bmi);
-        }
-        else{
-            height = collectHeight();
-            gender = collectGender();
-            met = collectMET();
-            weight = collectWeight();
-            time = collectWorkoutTime();
-            bDayYear = collectBdayYear();
-            bDayMonth = collectBdayMonth();
-            bDayDay = collectBdayDay(bDayMonth);
-            bmi = bmiCalculator(weight, height);
-            age = ageCalculator(bDayYear, bDayMonth, bDayDay, dateInfo);
-            newUserFile(name, dateInfo, bDayYear, bDayMonth, bDayDay, gender, height, weight, bmi);
-        }
-        
-        
-        menu ();
-        
-
-        do {
-            userInput = reader.nextLine();
-            if (userInput.equals(displayUserInformation)) {
-                // the methods for user input
-            }
-            else if (userInput.equals(calculateNewBMI)) {
-                avgCalculator(gender, age, bmi);
-            }
-            else if (userInput.equals(calculateCalories)) {
-                // the methods for user inputting calories and calculating
-                caloriesCalculator(time, met, weight);
-            }
-            else if (userInput.equals(displayProgressGraph)) {
-                // the methods for graph
-                launch(args);
-                List<Double> bmiList = fileReadBMI(name);
-                exportAsLineChart(bmiList, stage);
-                start(stage);
-            }
-        } while (!userInput.equals(quit));
+        launch(args);
     }
-    public static void menu () {
+
+    public void menu () {
         System.out.println("Select an Option:");
         System.out.println("1. Display User Information");
         System.out.println("2. Calculate New BMI");
@@ -117,8 +41,7 @@ public class DailyFitnessTracker extends Application{
      * @Author Robert Todica
      * @return Returns a variable with users name
      */
-    public static String collectName(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public String collectName(){
 
         System.out.println("What is your first name?");  //Asks user for first name
         String info = sc.nextLine();  //Saves name as string variable info
@@ -130,11 +53,10 @@ public class DailyFitnessTracker extends Application{
      * @Author  Robert Todica
      * @return Returns a variable with the users height0
      */
-    public static double collectHeight(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public double collectHeight(){
 
         System.out.println("What is your height in meters?");  //Asks user for first name
-        double height = sc.nextDouble();  //Saves height as string variable height
+        double height = Double.parseDouble(sc.nextLine());  //Saves height as string variable height
 
         return height;
     }
@@ -143,8 +65,7 @@ public class DailyFitnessTracker extends Application{
      * @Author Robert Todica
      * @return Returns a variable with the users height
      */
-    public static String collectGender(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public String collectGender() {
         String gender = "";
 
         Boolean continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
@@ -172,8 +93,7 @@ public class DailyFitnessTracker extends Application{
      * @return Returns a variable with the users inputted MET value
      * @throws IOException
      */
-    public static double collectMET() throws IOException{
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public double collectMET() throws IOException{
 
         Boolean continueAsking = true; //Sets boolean continueAsking to true (used for looping if userinput is invalid)
         while(continueAsking) //While loop for when boolean continueAsking is true 
@@ -207,8 +127,7 @@ public class DailyFitnessTracker extends Application{
      * @Description Ask user for their weight 
      * @return Returns a variable with the users weight
      */
-    public static int collectWeight(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public  int collectWeight(){
 
         System.out.println("What is your weight in kilograms?"); //Asks user how much they weigh
         int weight = sc.nextInt(); //Users weight is saved in variable "weight"
@@ -220,12 +139,10 @@ public class DailyFitnessTracker extends Application{
      * @Description Asks the user how long their workout will be
      * @return Returns a variable with the users inputted time (in minutes)
      */
-    public static int collectWorkoutTime(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public  int collectWorkoutTime(){
 
         System.out.println("How long in minutes will your workout be?"); //Asks the user for how long the duration of their workout will be
         int time = sc.nextInt(); //Duration of workout saved in "time" variable
-
         return time;
     }
     /**
@@ -233,8 +150,7 @@ public class DailyFitnessTracker extends Application{
      * @Description Collects the users birth year
      * @return Returns the users birthyear in a variable
      */
-    public static int collectBdayYear(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public int collectBdayYear(){
         int year = 0;
 
         Boolean continueAsking = true; //Sets boolean "continueAsking" to true agaiun to be used for a loop
@@ -251,7 +167,6 @@ public class DailyFitnessTracker extends Application{
                 continueAsking = false; //Boolean "continueAsking" is set to false so next code will display
             }
         }
-
         return year;
     }
     /**
@@ -259,8 +174,7 @@ public class DailyFitnessTracker extends Application{
      * @Author Robert Todica
      * @return Returns the users birth month as a variable
      */
-    public static int collectBdayMonth(){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public int collectBdayMonth(){
         int month = 0;
 
         Boolean continueAsking = true; //Sets continueAsking to true
@@ -277,7 +191,6 @@ public class DailyFitnessTracker extends Application{
                 continueAsking = false; //Boolean set to false
             }
         }
-
         return month;
     }
     /**
@@ -286,8 +199,7 @@ public class DailyFitnessTracker extends Application{
      * @param month
      * @return Returns the users birth day in a variable
      */
-    public static int collectBdayDay(int month){
-        Scanner sc = new Scanner(System.in); //Initilize scanner
+    public int collectBdayDay(int month){
         int day = 0;
 
         Boolean continueAsking = true; //Sets continueAsking to true
@@ -304,7 +216,6 @@ public class DailyFitnessTracker extends Application{
                 System.out.println("INVALID INPUT"); //Displays "INVALID INPUT"
             }
         }
-
         return day;
     }
 
@@ -331,21 +242,6 @@ public class DailyFitnessTracker extends Application{
         }
         return false;//If above checks are not satisfied, returns false
     }
-
-    // /**
-    //  * @author Naomi Mezheritsky
-    //  * @param args
-    //  * @throws Exception
-    //  * Desc: Api. Reads BMI
-    //  */
-    
-    // private List<Double> getBMI(String name) throws IOException {
-    //     // 1. Get the list of weight and height from the file
-    //     // 2. Create the list of bmi where every member is calculated with bmiCalculator()
-    //     // 3. return this list
-    //     List<Double> bmi = (fileReadBMI(name));
-    //     return bmi; // graph will display users input for the BMI
-    // }
 
     /**
      * @author Naomi Mezheritsky
@@ -393,14 +289,91 @@ public class DailyFitnessTracker extends Application{
      */
 
     //@Override
-    public void start(Stage stage, String name) throws Exception {  
+    public void start(Stage stage) throws Exception {  
+        sc = new Scanner (System.in);
+        String name = collectName();
 
-        // 1. retrieve data
-        List<Double> bmiList = fileReadBMI(name);
+        String displayUserInformation = "1";
+        String calculateNewBMI = "2";
+        String calculateCalories = "3";
+        String displayProgressGraph = "4";
+        String quit = "5";
+        
+        String[] dateInfo = fetchDate();
+        String quote = dailyQuote();
+        System.out.println(quote);
 
-        // 2. display chart of BMI as line
-        exportAsLineChart(bmiList, stage);
-    }    
+        // String name = collectName();
+        Boolean filecheck = doesFileExist(name);
+
+        double height = 0;
+        String gender = "";
+        double met = 0;
+        int weight = 0;
+        int time = 0;
+        int bDayYear = 0;
+        int bDayMonth = 0;
+        int bDayDay = 0;
+        double bmi = 0;
+        int age = 0;
+        String userInput = "";
+        
+    
+        if (filecheck == true){
+            height = collectHeight();
+            weight = collectWeight();
+            met = collectMET();
+            time = collectWorkoutTime();
+            bmi = bmiCalculator(weight, height);
+            age = ageCalculator(bDayYear, bDayMonth, bDayDay, dateInfo);
+            bDayYear = fileReadBDayYear(name);
+            bDayMonth = fileReadBDayMonth(name);
+            bDayDay = fileReadBDayDay(name);
+            age = ageCalculator(bDayYear, bDayMonth, bDayDay, dateInfo);
+            existingFileWrite(name, dateInfo, bDayYear, bDayMonth, bDayDay, gender, height, weight, bmi);
+        }
+        else{
+            height = collectHeight();
+            gender = collectGender();
+            met = collectMET();
+            weight = collectWeight();
+            time = collectWorkoutTime();
+            bDayYear = collectBdayYear();
+            bDayMonth = collectBdayMonth();
+            bDayDay = collectBdayDay(bDayMonth);
+            bmi = bmiCalculator(weight, height);
+            age = ageCalculator(bDayYear, bDayMonth, bDayDay, dateInfo);
+            newUserFile(name, dateInfo, bDayYear, bDayMonth, bDayDay, gender, height, weight, bmi);
+        }
+        
+        
+        menu ();
+        
+
+        do {
+            userInput = sc.nextLine();
+            if (userInput.equals(displayUserInformation)) {
+                // the methods for user input
+            }
+            else if (userInput.equals(calculateNewBMI)) {
+                avgCalculator(gender, age, bmi);
+            }
+            else if (userInput.equals(calculateCalories)) {
+                // the methods for user inputting calories and calculating
+                caloriesCalculator(time, met, weight);
+            }
+            else if (userInput.equals(displayProgressGraph)) {
+                // the methods for graph
+                // 1. retrieve data
+                List<Double> bmiList = fileReadBMI(name);
+                // 2. display chart of BMI as line
+                exportAsLineChart(bmiList, stage);
+            }
+
+        } while (!userInput.equals(quit));
+
+        sc.close();
+    }
     
     /**
      * Calculates the age using system date and birthday
@@ -446,16 +419,21 @@ public class DailyFitnessTracker extends Application{
 
         List<Double> bmi = new ArrayList<>(); //Create array list
 
+        int i=0;
         while ((line = br.readLine()) != null) { //While there are still lines to be read loop
-        String[] column = line.split(delimeter); //Read the file into an array
+            if (i == 0) {
+                // ignore the first line as it has "titles"
+                continue;
+            }
+            String[] column = line.split(delimeter); //Read the file into an array
 
-        String tempbmi = column[10];
-        double pastebmi = Double.parseDouble(tempbmi);
+            String tempbmi = column[10];
+            Double pastebmi = Double.valueOf(tempbmi);;
 
-        bmi.add(pastebmi); //Add 10th index into array list
+            bmi.add(pastebmi); //Add 10th index into array list
+            i++;
         }
         br.close(); //Close buffered reader
-        bmi.remove(0);//Remove the column header
         return bmi;
     }
 
@@ -788,10 +766,5 @@ public class DailyFitnessTracker extends Application{
             System.out.println("You're doing great :)");
         }
         return avg;
-    }
-    //@Override
-    public void start(Stage arg0) throws Exception {
-        // TODO Auto-generated method stub
-        
     }
 }
