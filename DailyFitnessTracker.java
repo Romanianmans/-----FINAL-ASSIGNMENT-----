@@ -109,8 +109,12 @@ public class DailyFitnessTracker extends Application{
         System.out.println("5. Quit \n");
         System.out.println("Enter menu option (1-5)");
       }
-    
-      public static String collectName(){
+    /**
+     * @Description Collects the users name
+     * @Author Robert Todica
+     * @return Returns a variable with users name
+     */
+    public static String collectName(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
 
         System.out.println("What is your first name?");  //Asks user for first name
@@ -118,7 +122,11 @@ public class DailyFitnessTracker extends Application{
 
         return info;
     }
-
+    /**
+     * @Description Collects the users height
+     * @Author  Robert Todica
+     * @return Returns a variable with the users height0
+     */
     public static double collectHeight(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
 
@@ -127,7 +135,11 @@ public class DailyFitnessTracker extends Application{
 
         return height;
     }
-
+    /**
+     * @Description Collects the users gender
+     * @Author Robert Todica
+     * @return Returns a variable with the users height
+     */
     public static String collectGender(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
         String gender = "";
@@ -151,7 +163,12 @@ public class DailyFitnessTracker extends Application{
         }
         return gender;
     }
-
+    /**
+     * @Description Asks the user if they know what an met is / Asks user for their MET value / educates the user if they dont know their MET
+     * @Author Robert Todica
+     * @return Returns a variable with the users inputted MET value
+     * @throws IOException
+     */
     public static double collectMET() throws IOException{
         Scanner sc = new Scanner(System.in); //Initilize scanner
 
@@ -177,12 +194,16 @@ public class DailyFitnessTracker extends Application{
                 System.out.println("INVALID INPUT"); 
             }
         }
-
+        
         System.out.println("What is the MET value for your workout?"); //Asks user what is their MET value
         double metValue = sc.nextDouble(); //MET value saved as variable metValue
         return metValue;
     }
-
+    /**
+     * @Author Robert Todica
+     * @Description Ask user for their weight 
+     * @return Returns a variable with the users weight
+     */
     public static int collectWeight(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
 
@@ -191,7 +212,11 @@ public class DailyFitnessTracker extends Application{
 
         return weight;
     }
-
+    /**
+     * @Author Robert Todica
+     * @Description Asks the user how long their workout will be
+     * @return Returns a variable with the users inputted time (in minutes)
+     */
     public static int collectWorkoutTime(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
 
@@ -200,7 +225,11 @@ public class DailyFitnessTracker extends Application{
 
         return time;
     }
-
+    /**
+     * @Author Robert Todica
+     * @Description Collects the users birth year
+     * @return Returns the users birthyear in a variable
+     */
     public static int collectBdayYear(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
         int year = 0;
@@ -222,7 +251,11 @@ public class DailyFitnessTracker extends Application{
 
         return year;
     }
-
+    /**
+     * @Description Collects the users birth month
+     * @Author Robert Todica
+     * @return Returns the users birth month as a variable
+     */
     public static int collectBdayMonth(){
         Scanner sc = new Scanner(System.in); //Initilize scanner
         int month = 0;
@@ -244,7 +277,12 @@ public class DailyFitnessTracker extends Application{
 
         return month;
     }
-
+    /**
+     * @Author Robert Todica
+     * @Description Collect the users Birth day 
+     * @param month
+     * @return Returns the users birth day in a variable
+     */
     public static int collectBdayDay(int month){
         Scanner sc = new Scanner(System.in); //Initilize scanner
         int day = 0;
