@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+/*
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -18,9 +19,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+*/
 
-
-public class DailyFitnessTracker extends Application{ 
+public class DailyFitnessTracker /*extends Application*/{ 
 
     public static void main(String[] args) throws Exception {
         Scanner reader = new Scanner (System.in);
@@ -91,13 +92,13 @@ public class DailyFitnessTracker extends Application{
                 // the methods for user inputting calories and calculating
                 caloriesCalculator(time, met, weight);
             }
-            else if (userInput.equals(displayProgressGraph)) {
+            /*else if (userInput.equals(displayProgressGraph)) {
                 // the methods for graph
                 launch(args);
                 getBMI(name);
                 exportAsLineChart();
                 start();
-            }
+            }*/
         } while (!userInput.equals(quit));
     }
     public static void menu () {
@@ -298,7 +299,7 @@ public class DailyFitnessTracker extends Application{
      * Desc: Api. Makes a line chart for the BMI
      */
 
-    
+    /*
     private List<Double> getBMI(String name) {
         // 1. Get the list of weight and height from the file
         // 2. Create the list of bmi where every member is calculated with bmiCalculator()
@@ -348,7 +349,7 @@ public class DailyFitnessTracker extends Application{
         // 2. display chart of BMI as line
         exportAsLineChart(bmiList, stage);
     }
-    
+    */
     
     /**
      * Calculates the age using system date and birthday
